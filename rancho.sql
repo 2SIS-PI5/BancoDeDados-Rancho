@@ -2,11 +2,6 @@ CREATE DATABASE rancho;
 
 USE rancho;
 
-CREATE TABLE setores (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome_setor VARCHAR(50) NOT NULL
-);
-
 CREATE TABLE usuarios_sistema (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
@@ -14,7 +9,7 @@ CREATE TABLE usuarios_sistema (
     senha_hash VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE areas(
+CREATE TABLE setores(
 	id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50)
 );
@@ -31,8 +26,18 @@ CREATE TABLE funcionarios (
     custo_transporte BOOLEAN DEFAULT FALSE,
     distancia FLOAT(10,2) NOT NULL,
     data_cadastro DATE NOT NULL,
-    CONSTRAINT FkAreasFuncionarios FOREIGN KEY (id_area) REFERENCES areas(id)
+    CONSTRAINT FkSetoresFuncionarios FOREIGN KEY (id_area) REFERENCES setores(id)
 );
+
+CREATE TABLE avaliacoes (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    id_funcionario INT NOT NULL,
+    id_usuario_sistema INT,
+    nota FLOAT,
+    descricao VARCHAR(255),
+    CONSTRAINT fkFuncionarioAvaliacao FOREIGN KEY(id_funcionario) REFERENCES funcionarios(id),
+    CONSTRAINT fkUsuarioSistemaAvaliacao FOREIGN KEY(id_usuario_sistema) REFERENCES usuarios_sistema(id)
+); 
 
 CREATE TABLE escalas (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -61,15 +66,4 @@ CREATE TABLE pagamentos (
     status_pagamento VARCHAR(20) DEFAULT 'Pendente' CHECK (status_pagamento IN ('Pendente', 'Pago')),
     CONSTRAINT fkEscalaFuncionarioPagamento FOREIGN KEY (id_escala_func) REFERENCES escala_funcionarios(id),
     CONSTRAINT fkFuncionarioPagamento FOREIGN KEY (id_funcionario) REFERENCES funcionarios(id)
-);
-
-CREATE TABLE pontuacoes_funcionario (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    id_funcionario INT NOT NULL,
-    pontos INT NOT NULL,
-    motivo VARCHAR(100) NOT NULL,
-    data_pontuacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    id_escala_func INT,
-    CONSTRAINT fkFuncionarioPontuacao FOREIGN KEY (id_funcionario) REFERENCES funcionarios(id),
-    CONSTRAINT fkEscalaFuncPontuacao FOREIGN KEY (id_escala_func) REFERENCES escala_funcionarios(id)
 );
