@@ -10,6 +10,7 @@ CREATE TABLE funcionario (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
 	fk_setor BIGINT,
     nome VARCHAR(150) NOT NULL,
+    email VARCHAR(150) NOT NULL,
     telefone VARCHAR(20) NOT NULL,
     valor_diaria DECIMAL(10,2) NOT NULL,
     chave_pix TEXT,
@@ -119,25 +120,28 @@ INSERT INTO setor (nome) VALUES
 ('Atividades');
 
 -- Inserindo funcionários da Cozinha
-INSERT INTO funcionario(fk_setor, nome, telefone, valor_diaria, chave_pix, status, ajuda_transporte) VALUES
-(1, 'Carlos Henrique', '11987654321', 150.00, '11987654321', 'ATIVO', TRUE),
-(1, 'Marcos Oliveira', '11987654322', 140.00, 'marcos@email.com', 'ATIVO', FALSE),
-(1, 'João Pedro', '11987654323', 160.00, '11987654323', 'ATIVO', TRUE),
-(1, 'Rafael Santos', '11987654324', 145.00, 'rafael@email.com', 'ATIVO', TRUE),
-(1, 'Lucas Ferreira', '11987654325', 135.00, '11987654325', 'ATIVO', FALSE);
+INSERT INTO funcionario (fk_setor, nome, email, telefone, valor_diaria, chave_pix, status, ajuda_transporte) 
+VALUES
+(1, 'Carlos Henrique', 'carlos@email.com', '11987654321', 150.00, '11987654321', 'ATIVO', TRUE),
+(1, 'Marcos Oliveira', 'marcos@email.com', '11987654322', 140.00, 'marcos@email.com', 'ATIVO', FALSE),
+(1, 'João Pedro', 'joao@email.com', '11987654323', 160.00, '11987654323', 'ATIVO', TRUE),
+(1, 'Rafael Santos', 'rafael@email.com', '11987654324', 145.00, 'rafael@email.com', 'ATIVO', TRUE),
+(1, 'Lucas Ferreira', 'lucas@email.com', '11987654325', 135.00, '11987654325', 'ATIVO', FALSE);
 
 -- Inserindo funcionários do Salão
-INSERT INTO funcionario(fk_setor, nome, telefone, valor_diaria, chave_pix, status, ajuda_transporte) VALUES
-(2, 'Gabriel Souza', '11987654326', 130.00, '11987654326', 'ATIVO', TRUE),
-(2, 'Matheus Lima', '11987654327', 125.00, 'matheus@email.com', 'ATIVO', FALSE),
-(2, 'André Costa', '11987654328', 140.00, '11987654328', 'ATIVO', TRUE),
-(2, 'Felipe Almeida', '11987654329', 135.00, 'felipe@email.com', 'ATIVO', TRUE),
-(2, 'Bruno Martins', '11987654330', 120.00, '11987654330', 'ATIVO', FALSE);
+INSERT INTO funcionario (fk_setor, nome, email, telefone, valor_diaria, chave_pix, status, ajuda_transporte) 
+VALUES
+(2, 'Gabriel Souza', 'gabriel@email.com', '11987654326', 130.00, '11987654326', 'ATIVO', TRUE),
+(2, 'Matheus Lima', 'matheus@email.com', '11987654327', 125.00, 'matheus@email.com', 'ATIVO', FALSE),
+(2, 'André Costa', 'andre@email.com', '11987654328', 140.00, '11987654328', 'ATIVO', TRUE),
+(2, 'Felipe Almeida', 'felipe@email.com', '11987654329', 135.00, 'felipe@email.com', 'ATIVO', TRUE),
+(2, 'Bruno Martins', 'bruno@email.com', '11987654330', 120.00, '11987654330', 'ATIVO', FALSE);
 
 -- Inserindo funcionários das Atividades
-INSERT INTO funcionario(fk_setor, nome, telefone, valor_diaria, chave_pix, status, ajuda_transporte)VALUES
-(3, 'Diego Rodrigues', '11987654331', 110.00, '11987654331', 'ATIVO', TRUE),
-(3, 'Thiago Barbosa', '11987654332', 115.00, 'thiago@email.com', 'ATIVO', FALSE),
-(3, 'Vinicius Rocha', '11987654333', 125.00, '11987654333', 'ATIVO', TRUE),
-(3, 'Gustavo Mendes', '11987654334', 120.00, 'gustavo@email.com', 'ATIVO', TRUE),
-(3, 'Eduardo Nunes', '11987654335', 105.00, '11987654335', 'ATIVO', FALSE);
+INSERT INTO funcionario (fk_setor, nome, email, telefone, valor_diaria, chave_pix, status, ajuda_transporte)
+VALUES
+(3, 'Diego Rodrigues', 'diego@email.com', '11987654331', 110.00, '11987654331', 'ATIVO', TRUE),
+(3, 'Thiago Barbosa', 'thiago@email.com', '11987654332', 115.00, 'thiago@email.com', 'ATIVO', FALSE),
+(3, 'Vinicius Rocha', 'vinicius@email.com', '11987654333', 125.00, '11987654333', 'ATIVO', TRUE),
+(3, 'Gustavo Mendes', 'gustavo@email.com', '11987654334', 120.00, 'gustavo@email.com', 'ATIVO', TRUE),
+(3, 'Eduardo Nunes', 'eduardo@email.com', '11987654335', 105.00, '11987654335', 'ATIVO', FALSE);
