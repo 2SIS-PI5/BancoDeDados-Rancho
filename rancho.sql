@@ -74,9 +74,14 @@ CREATE TABLE escala_funcionarios (
 CREATE TABLE avaliacoes (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     fk_funcionario BIGINT NOT NULL,
+    avaliador_id BIGINT NULL,
+    avaliador_nome VARCHAR(255) NULL,
     nota INT,
     descricao VARCHAR(255),
-    FOREIGN KEY (fk_funcionario) REFERENCES funcionario(id)
+    FOREIGN KEY (fk_funcionario) REFERENCES funcionario(id),
+    CONSTRAINT fk_avaliacoes_avaliador
+    FOREIGN KEY (avaliador_id) REFERENCES usuario_sistema(id)
+    ON DELETE SET NULL
 );
 
 CREATE TABLE pagamento (
@@ -117,6 +122,7 @@ INSERT INTO usuario_sistema (nome, role, email, senha_hash) VALUES
 INSERT INTO setor (nome) VALUES
 ('Salão'),
 ('Cozinha'),
+('Garçom'),
 ('Atividades');
 
 -- Inserindo funcionários da Cozinha
