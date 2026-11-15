@@ -116,7 +116,7 @@ CREATE TABLE pagamento_escalas (
 -- INSERTS & SELECTS
 -- --------------------------------------------------------------------------------------------------------
 INSERT INTO usuario_sistema (nome, role, email, senha_hash) VALUES
-('Ryan Patric', 'GERENTE', 'ryan.servilha@sptech.school', 'rancho123');
+('Ryan Patric', 'GESTOR', 'ryan.servilha@sptech.school', 'rancho123');
 
 -- Inserindo setores
 INSERT INTO setor (nome) VALUES
