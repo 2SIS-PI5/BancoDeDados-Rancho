@@ -1,3 +1,4 @@
+DROP DATABASE gestao_rancho; 
 CREATE DATABASE gestao_rancho CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE gestao_rancho;
 
@@ -78,6 +79,10 @@ CREATE TABLE avaliacoes (
     avaliador_nome VARCHAR(255) NULL,
     nota INT,
     descricao VARCHAR(255),
+	criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    email_enviado_em DATETIME(6),
+    email_tentativas INT, 
+    email_ultimo_erro VARCHAR(255),
     FOREIGN KEY (fk_funcionario) REFERENCES funcionario(id),
     CONSTRAINT fk_avaliacoes_avaliador
     FOREIGN KEY (avaliador_id) REFERENCES usuario_sistema(id)
@@ -118,36 +123,60 @@ CREATE TABLE pagamento_escalas (
 INSERT INTO usuario_sistema (nome, role, email, senha_hash) VALUES
 ('Ryan Patric', 'GESTOR', 'ryan.servilha@sptech.school', 'rancho123');
 
--- Inserindo setores
 INSERT INTO setor (nome) VALUES
 ('Salão'),
 ('Cozinha'),
-('Garçom'),
 ('Atividades');
 
 -- Inserindo funcionários da Cozinha
-INSERT INTO funcionario (fk_setor, nome, email, telefone, valor_diaria, chave_pix, status, ajuda_transporte) 
+INSERT INTO funcionario
+(fk_setor, nome, email, telefone, valor_diaria, chave_pix, status, ajuda_transporte)
 VALUES
-(1, 'Carlos Henrique', 'carlos@email.com', '11987654321', 150.00, '11987654321', 'ATIVO', TRUE),
-(1, 'Marcos Oliveira', 'marcos@email.com', '11987654322', 140.00, 'marcos@email.com', 'ATIVO', FALSE),
-(1, 'João Pedro', 'joao@email.com', '11987654323', 160.00, '11987654323', 'ATIVO', TRUE),
-(1, 'Rafael Santos', 'rafael@email.com', '11987654324', 145.00, 'rafael@email.com', 'ATIVO', TRUE),
-(1, 'Lucas Ferreira', 'lucas@email.com', '11987654325', 135.00, '11987654325', 'ATIVO', FALSE);
+(1, 'Carlos Henrique', 'carlos@gmail.com', '11987654321', 150.00, '11987654321', 'ATIVO', TRUE),
+(1, 'Marcos Oliveira', 'marcos@gmail.com', '11987654322', 140.00, 'marcos@email.com', 'ATIVO', FALSE),
+(1, 'João Pedro', 'joao@gmail.com', '11987654323', 160.00, '11987654323', 'ATIVO', TRUE),
+(1, 'Rafael Santos', 'rafael@gmail.com', '11987654324', 145.00, '11987654324', 'ATIVO', TRUE),
+(1, 'Lucas Ferreira', 'lucas@gmail.com', '11987654325', 135.00, '11987654325', 'ATIVO', FALSE);
 
 -- Inserindo funcionários do Salão
-INSERT INTO funcionario (fk_setor, nome, email, telefone, valor_diaria, chave_pix, status, ajuda_transporte) 
+INSERT INTO funcionario
+(fk_setor, nome, email, telefone, valor_diaria, chave_pix, status, ajuda_transporte)
 VALUES
-(2, 'Gabriel Souza', 'gabriel@email.com', '11987654326', 130.00, '11987654326', 'ATIVO', TRUE),
-(2, 'Matheus Lima', 'matheus@email.com', '11987654327', 125.00, 'matheus@email.com', 'ATIVO', FALSE),
-(2, 'André Costa', 'andre@email.com', '11987654328', 140.00, '11987654328', 'ATIVO', TRUE),
-(2, 'Felipe Almeida', 'felipe@email.com', '11987654329', 135.00, 'felipe@email.com', 'ATIVO', TRUE),
-(2, 'Bruno Martins', 'bruno@email.com', '11987654330', 120.00, '11987654330', 'ATIVO', FALSE);
+(2, 'Gabriel Souza', 'gabriel@gmail.com', '11987654326', 130.00, '11987654326', 'ATIVO', TRUE),
+(2, 'Matheus Lima', 'matheus@gmail.com', '11987654327', 125.00, 'matheus@email.com', 'ATIVO', FALSE),
+(2, 'André Costa', 'andre@gmail.com', '11987654328', 140.00, '11987654328', 'ATIVO', TRUE),
+(2, 'Felipe Almeida', 'felipe@gmail.com', '11987654329', 135.00, '11987654329', 'ATIVO', TRUE),
+(2, 'Bruno Martins', 'bruno@gmail.com', '11987654330', 120.00, '11987654330', 'ATIVO', FALSE);
 
 -- Inserindo funcionários das Atividades
-INSERT INTO funcionario (fk_setor, nome, email, telefone, valor_diaria, chave_pix, status, ajuda_transporte)
+INSERT INTO funcionario
+(fk_setor, nome, email, telefone, valor_diaria, chave_pix, status, ajuda_transporte)
 VALUES
-(3, 'Diego Rodrigues', 'diego@email.com', '11987654331', 110.00, '11987654331', 'ATIVO', TRUE),
-(3, 'Thiago Barbosa', 'thiago@email.com', '11987654332', 115.00, 'thiago@email.com', 'ATIVO', FALSE),
-(3, 'Vinicius Rocha', 'vinicius@email.com', '11987654333', 125.00, '11987654333', 'ATIVO', TRUE),
-(3, 'Gustavo Mendes', 'gustavo@email.com', '11987654334', 120.00, 'gustavo@email.com', 'ATIVO', TRUE),
-(3, 'Eduardo Nunes', 'eduardo@email.com', '11987654335', 105.00, '11987654335', 'ATIVO', FALSE);
+(3, 'Diego Rodrigues', 'diego@gmail.com', '11987654331', 110.00, '11987654331', 'ATIVO', TRUE),
+(3, 'Thiago Barbosa', 'thiago@gmail.com', '11987654332', 115.00, 'thiago@email.com', 'ATIVO', FALSE),
+(3, 'Vinicius Rocha', 'vinicius@gmail.com', '11987654333', 125.00, '11987654333', 'ATIVO', TRUE),
+(3, 'Gustavo Mendes', 'gustavo@gmail.com', '11987654334', 120.00, 'gustavo@email.com', 'ATIVO', TRUE),
+(3, 'Eduardo Nunes', 'eduardo@gmail.com', '11987654335', 105.00, '11987654335', 'ATIVO', FALSE);
+
+INSERT INTO endereco_funcionario
+(fk_funcionario, cep, logradouro, numero, bairro, cidade, estado)
+VALUES
+-- SALÃO
+(1, '09710-000', 'Rua Marechal Deodoro', '120', 'Centro', 'São Bernardo do Campo', 'SP'),
+(2, '09720-000', 'Avenida Brigadeiro Faria Lima', '250', 'Centro', 'São Bernardo do Campo', 'SP'),
+(3, '09715-000', 'Rua João Pessoa', '85', 'Centro', 'São Bernardo do Campo', 'SP'),
+(4, '09710-140', 'Rua São Bernardo', '310', 'Centro', 'São Bernardo do Campo', 'SP'),
+(5, '09725-000', 'Rua Jurubatuba', '450', 'Centro', 'São Bernardo do Campo', 'SP'),
+-- COZINHA
+(6, '09750-000', 'Avenida Senador Vergueiro', '600', 'Centro', 'São Bernardo do Campo', 'SP'),
+(7, '09710-090', 'Rua Rio Branco', '145', 'Centro', 'São Bernardo do Campo', 'SP'),
+(8, '09715-120', 'Rua Santos Dumont', '220', 'Centro', 'São Bernardo do Campo', 'SP'),
+(9, '09720-440', 'Rua Frei Gaspar', '95', 'Centro', 'São Bernardo do Campo', 'SP'),
+(10, '09725-440', 'Avenida Senador Flaquer', '380', 'Centro', 'São Bernardo do Campo', 'SP'),
+
+-- ATIVIDADES
+(11, '09720-140', 'Rua Italo Setti', '170', 'Centro', 'São Bernardo do Campo', 'SP'),	
+(12, '09715-090', 'Rua Silva Jardim', '260', 'Centro', 'São Bernardo do Campo', 'SP'),
+(13, '09720-110', 'Rua Newton Prado', '115', 'Centro', 'São Bernardo do Campo', 'SP'),
+(14, '09715-220', 'Rua São Pedro', '320', 'Centro', 'São Bernardo do Campo', 'SP'),
+(15, '09720-510', 'Rua das Acácias', '75', 'Centro', 'São Bernardo do Campo', 'SP');
