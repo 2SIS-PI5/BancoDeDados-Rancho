@@ -1,4 +1,3 @@
-DROP DATABASE gestao_rancho; 
 CREATE DATABASE gestao_rancho CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE gestao_rancho;
 
