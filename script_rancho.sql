@@ -17,6 +17,7 @@ CREATE TABLE funcionario (
 	status VARCHAR(10) NOT NULL,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     ajuda_transporte BOOLEAN,
+	CONSTRAINT uq_funcionario_email UNIQUE (email),
 	CONSTRAINT fk_funcionario_setor
 		FOREIGN KEY (fk_setor)
 		REFERENCES setor(id)
@@ -47,7 +48,8 @@ CREATE TABLE usuario_sistema (
     nome VARCHAR(100) NOT NULL,
     role VARCHAR(20) NOT NULL DEFAULT 'GESTOR',
     email VARCHAR(100) UNIQUE NOT NULL,
-    senha_hash VARCHAR(255) NOT NULL
+    senha_hash VARCHAR(255) NOT NULL,
+    token_version INT NOT NULL DEFAULT 0
 );
 
 CREATE TABLE escala (
